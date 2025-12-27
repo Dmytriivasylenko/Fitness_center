@@ -1,0 +1,157 @@
+{% extends "base_dashboard.html" %}
+{% block content %}
+
+<h1>Manage Reservations</h1>
+
+<style>
+    .filters {
+        background: #1d1d1d;
+        padding: 18px;
+        border-radius: 12px;
+        margin-bottom: 25px;
+    }
+
+    select, input[type=date] {
+        padding: 8px;
+        border-radius: 6px;
+        background: #2b2b2b;
+        color: white;
+        border: none;
+        margin-right: 12px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 12px;
+    }
+
+    th, td {
+        padding: 10px;
+        border-bottom: 1px solid #333;
+    }
+
+    th { color: #aaa; }
+
+    .status {
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-size: 12px;
+        color: white;
+    }
+
+    .s-upcoming { background: #4caf50; }
+    .s-today { background: #ff9800; }
+    .s-past { background: #757575; }
+    .s-canceled { background: #e53935; }
+
+    .btn {
+        padding: 6px 10px;
+        background: #4fa3ff;
+        color: white;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 13px;
+    }
+
+    .btn:hover { background: #2d82d6; }
+
+    .btn-danger {
+        background: #b71c1c;
+    }
+    .btn-danger:hover {
+        background: #951313;
+    }
+</style>
+
+<div class="filters">
+    <form method="GET" action="/admin/reservations">
+        <select name="status">
+            <option value="all" {% if selected.status == "all" %}selected{% endif %}>All statuses</option>
+            <option value="upcoming" {% if selected.status == "upcoming" %}selected{% endif %}>Upcoming</option>
+            <option value="today" {% if selected.status == "today" %}selected{% endif %}>Today</option>
+            <option value="past" {% if selected.status == "past" %}selected{% endif %}>Past</option>
+            <option value="canceled" {% if selected.status == "canceled" %}selected{% endif %}>Canceled</option>
+        </select>
+
+        <select name="user_id">
+            <option value="">All users</option>
+            {% for u in users %}
+                <option value="{{ u.id }}" {% if selected.user_id == u.id|string %}selected{% endif %}>
+                    {{ u.login }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <select name="trainer_id">
+            <option value="">All trainers</option>
+            {% for t in trainers %}
+                <option value="{{ t.id }}" {% if selected.trainer_id == t.id|string %}selected{% endif %}>
+                    {{ t.name }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <select name="service_id">
+            <option value="">All services</option>
+            {% for s in services %}
+                <option value="{{ s.id }}" {% if selected.service_id == s.id|string %}selected{% endif %}>
+                    {{ s.name }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <input type="date" name="date" value="{{ selected.date }}">
+
+        <button class="btn" type="submit">Apply filters</button>
+    </form>
+</div>
+
+<div class="card">
+<table>
+    <tr>
+        <th>ID</th>
+        <th>User</th>
+        <th>Trainer</th>
+        <th>Service</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for r in reservations %}
+    <tr>
+        <td>{{ r.id }}</td>
+        <td>{{ r.user.login }}</td>
+        <td>{{ r.trainer.name }}</td>
+        <td>{{ r.service.name }}</td>
+        <td>{{ r.date }}</td>
+        <td>{{ r.time }}</td>
+
+        <td>
+            <span class="status s-{{ r.status }}">
+                {{ r.status|capitalize }}
+            </span>
+        </td>
+
+        <td>
+            <a href="/admin/reservations/{{ r.id }}/edit" class="btn">Edit</a>
+
+            <form method="POST" action="/admin/reservations/{{ r.id }}/cancel"
+                  style="display:inline;"
+                  onsubmit="return confirm('Cancel reservation?');">
+                <button class="btn btn-danger" type="submit">Cancel</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+
+</table>
+</div>
+
+{% if reservations|length == 0 %}
+<p style="color:#aaa; margin-top:20px;">No reservations found.</p>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "base/dashboard.html" %}
+{% set title = "Trainers" %}
+{% set active = "trainers" %}
+
+{% block content %}
+
+<!-- HEADER -->
+<div class="card">
+    <h3 class="card-title">🧑‍🏫 Our Trainers</h3>
+    <p class="muted">
+        Meet our professional coaches and book your training
+    </p>
+</div>
+
+{% if trainers %}
+
+<div class="trainers-grid">
+    {% for t in trainers %}
+    <div class="card trainer-card">
+
+        <div class="trainer-info">
+            <h4 class="trainer-name">{{ t.name }}</h4>
+            <p class="muted">
+                {{ t.specialization if t.specialization else "Certified Fitness Trainer" }}
+            </p>
+        </div>
+
+        <div class="trainer-actions">
+            <a href="/trainers/{{ t.id }}" class="btn-sm">
+                View Profile
+            </a>
+
+            <a href="/services" class="btn-sm primary">
+                Book Session
+            </a>
+        </div>
+
+    </div>
+    {% endfor %}
+</div>
+
+{% else %}
+<div class="card">
+    <p class="muted">
+        No trainers available at the moment.
+    </p>
+</div>
+{% endif %}
+
+{% endblock %}

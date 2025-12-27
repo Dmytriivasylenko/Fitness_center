@@ -1,0 +1,57 @@
+<div class="sidebar">
+
+    <!-- BRAND -->
+    <div class="sidebar-brand">
+        <h2>Fitness<span>App</span></h2>
+        <p class="sidebar-tagline">Member Portal</p>
+    </div>
+
+    <!-- USER INFO -->
+    {% if current_user %}
+    <div class="sidebar-user">
+        <div class="user-name">{{ current_user.login }}</div>
+        <div class="user-email">{{ current_user.email }}</div>
+
+        <div class="user-balance">
+            Balance: <b>${{ current_user.funds or 0 }}</b>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- NAVIGATION -->
+    <ul class="sidebar-nav">
+
+        <li class="{% if active == 'dashboard' %}active{% endif %}">
+            <a href="/user">🏠 Dashboard</a>
+        </li>
+
+        <li class="{% if active == 'services' %}active{% endif %}">
+            <a href="/services">💪 Services</a>
+        </li>
+
+        <li class="{% if active == 'trainers' %}active{% endif %}">
+            <a href="/trainers">🧑‍🏫 Trainers</a>
+        </li>
+
+        <li class="{% if active == 'reservations' %}active{% endif %}">
+            <a href="/reservations">📅 Reservations</a>
+        </li>
+
+        <li class="{% if active == 'profile' %}active{% endif %}">
+            <a href="/profile">👤 Profile</a>
+        </li>
+
+        {% if current_user and current_user.login == "admin" %}
+        <li class="{% if active == 'admin' %}active{% endif %}">
+            <a href="/admin">🛠 Admin Panel</a>
+        </li>
+        {% endif %}
+
+    </ul>
+
+    <!-- FOOTER -->
+    <div class="sidebar-footer">
+        <a href="/logout" class="logout">🚪 Log out</a>
+    </div>
+
+</div>

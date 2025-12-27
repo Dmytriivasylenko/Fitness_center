@@ -1,0 +1,18 @@
+<div class="navbar">
+
+    <div class="navbar-left">
+        <h1 class="page-title">
+            {{ title if title else "Dashboard" }}
+        </h1>
+    </div>
+
+    <div class="navbar-right">
+        {% if current_user %}
+            <div class="navbar-user">
+                <span class="user-label">Member</span>
+                <span class="user-name">{{ current_user.login }}</span>
+            </div>
+        {% endif %}
+    </div>
+
+</div>

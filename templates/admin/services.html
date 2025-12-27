@@ -1,0 +1,61 @@
+{% extends "admin/base_admin.html" %}
+
+{% block content %}
+<h2>Services</h2>
+
+<div style="margin-bottom: 12px; display:flex; gap:10px">
+
+    {% if show_inactive %}
+        <a class="btn" href="/admin/services">Show active services</a>
+    {% else %}
+        <a class="btn" href="/admin/services?inactive=1">Show inactive services</a>
+    {% endif %}
+
+    <a class="btn-primary" href="/admin/services/0/edit">Add service</a>
+</div>
+
+<table class="table">
+<thead>
+<tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Price</th>
+    <th>Status</th>
+    <th>Actions</th>
+</tr>
+</thead>
+
+<tbody>
+{% for s in services %}
+<tr>
+    <td>{{ s.id }}</td>
+    <td>{{ s.name }}</td>
+    <td>{{ s.price }}</td>
+
+    <td>
+        {% if s.is_active %}
+            Active
+        {% else %}
+            Inactive
+        {% endif %}
+    </td>
+
+    <td>
+        {% if s.is_active %}
+            <a class="btn" href="/admin/services/{{ s.id }}/edit">Edit</a>
+
+            <form method="post" action="/admin/services/{{ s.id }}/delete" class="inline">
+                <button class="btn-danger" onclick="return confirm('Deactivate service?')">
+                    Deactivate
+                </button>
+            </form>
+        {% else %}
+            <span style="color:#777">Deactivated</span>
+        {% endif %}
+    </td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+{% endblock %}

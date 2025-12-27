@@ -1,0 +1,63 @@
+{% extends "base/dashboard.html" %}
+{% set title = "My Profile" %}
+{% set active = "profile" %}
+
+{% block content %}
+
+<div class="card">
+    <h3 class="card-title">👤 My Profile</h3>
+    <p class="muted">
+        Personal information and account details
+    </p>
+</div>
+
+<div class="card">
+    <table cellpadding="8" cellspacing="0" width="100%">
+        <tr>
+            <td class="muted"><b>Username</b></td>
+            <td>{{ user.login }}</td>
+        </tr>
+
+        <tr>
+            <td class="muted"><b>Email</b></td>
+            <td>{{ user.email }}</td>
+        </tr>
+
+        <tr>
+            <td class="muted"><b>Phone</b></td>
+            <td>{{ user.phone or "—" }}</td>
+        </tr>
+
+        <tr>
+            <td class="muted"><b>Date of Birth</b></td>
+            <td>{{ user.birth_date or "—" }}</td>
+        </tr>
+
+        <tr>
+            <td class="muted"><b>Balance</b></td>
+            <td><b>${{ user.funds }}</b></td>
+        </tr>
+
+        <tr>
+            <td class="muted"><b>Total Reservations</b></td>
+            <td>{{ total_reservations }}</td>
+        </tr>
+    </table>
+</div>
+
+<div class="card">
+    <a href="/profile/edit" class="auth-btn" style="margin-bottom: 10px;">
+        ✏️ Edit Profile
+    </a>
+
+    <a href="/profile/change_password" class="auth-btn" style="background:#333;">
+        🔒 Change Password
+    </a>
+
+    <!-- 💳 NEW BUTTON -->
+    <a href="/profile/add_funds" class="auth-btn" style="background:#2563eb; margin-left:10px;">
+        💳 Add Funds
+    </a>
+</div>
+
+{% endblock %}

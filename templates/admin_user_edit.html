@@ -1,0 +1,46 @@
+{% extends "base_dashboard.html" %}
+{% block content %}
+
+<h1>Edit User</h1>
+
+<style>
+.card {
+    background: #1d1d1d;
+    padding: 25px;
+    border-radius: 14px;
+    width: 420px;
+}
+input { width: 100%; padding: 10px; background:#2b2b2b; border:none; border-radius:8px; color:white; margin-bottom:12px; }
+
+.btn {
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: none;
+    background: #4fa3ff;
+    color: white;
+}
+.btn:hover { background:#2d82d6; }
+</style>
+
+<div class="card">
+<form method="POST">
+
+    <label>Login</label>
+    <input type="text" name="login" value="{{ user.login }}" required>
+
+    <label>Email</label>
+    <input type="email" name="email" value="{{ user.email }}" required>
+
+    <label>Phone</label>
+    <input type="text" name="phone" value="{{ user.phone }}">
+
+    <label>
+        <input type="checkbox" name="is_admin" {% if user.is_admin %}checked{% endif %}>
+        Make Admin
+    </label>
+
+    <button class="btn" type="submit">Save</button>
+</form>
+</div>
+
+{% endblock %}

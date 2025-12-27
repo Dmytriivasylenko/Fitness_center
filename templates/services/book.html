@@ -1,0 +1,65 @@
+{% extends "base/dashboard.html" %}
+{% set title = "Book " ~ service.name %}
+{% set active = "services" %}
+
+{% block content %}
+
+<!-- HEADER -->
+<div class="card">
+    <h3 class="card-title">📌 Book Service</h3>
+    <p class="muted">
+        {{ service.name }}
+    </p>
+</div>
+
+{% if error %}
+<div class="card" style="background:#331515; color:#ff8a8a;">
+    {{ error }}
+</div>
+{% endif %}
+
+<!-- BOOKING SUMMARY -->
+<div class="card">
+    <h4 class="card-title">🧾 Booking Summary</h4>
+
+    <p class="muted"><b>Service</b></p>
+    <p>{{ service.name }}</p>
+
+    <p class="muted"><b>Duration</b></p>
+    <p>{{ service.duration }} minutes</p>
+
+    <p class="muted"><b>Price</b></p>
+    <p><b>{{ service.price }} $</b></p>
+</div>
+
+<!-- FORM -->
+<form method="post" class="card">
+
+    <label>Trainer</label>
+    <select name="trainer_id" required>
+        {% for t in trainers %}
+            <option value="{{ t.id }}">{{ t.name }}</option>
+        {% endfor %}
+    </select>
+
+    <label>Date</label>
+    <input type="date" name="date" required>
+
+    <label>Time</label>
+    <input type="time" name="time" required>
+
+    <div style="margin-top: 20px;">
+        <button type="submit" class="auth-btn">
+            ✅ Confirm Booking
+        </button>
+
+        <a href="/services/{{ service.id }}"
+           class="auth-btn"
+           style="background:#333; margin-left:10px;">
+            ← Back
+        </a>
+    </div>
+
+</form>
+
+{% endblock %}

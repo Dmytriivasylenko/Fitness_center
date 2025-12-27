@@ -1,0 +1,20 @@
+{% with messages = get_flashed_messages(with_categories=True) %}
+  {% if messages %}
+    <div class="flash-container">
+      {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+<style>
+.flash-container { margin: 10px 20px; }
+.flash {
+    padding: 10px 14px;
+    border-radius: 6px;
+    margin-bottom: 6px;
+}
+.flash.success { background:#e6fffa; color:#065f46; }
+.flash.error   { background:#fee2e2; color:#7f1d1d; }
+</style>

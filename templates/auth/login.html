@@ -1,0 +1,52 @@
+{% extends "base/auth.html" %}
+{% block title %}Member Login{% endblock %}
+{% block content %}
+
+<div class="auth-container fitness-auth">
+
+    <h1 class="auth-title">Member Login</h1>
+    <p class="auth-subtitle">
+        Access your workouts, memberships, and personal training plans
+    </p>
+
+    <form method="post" class="auth-form">
+
+        <label for="login">Email or Username</label>
+        <input
+            type="text"
+            id="login"
+            name="login"
+            placeholder="Enter your email or username"
+            required
+        >
+
+        <label for="password">Password</label>
+        <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter your password"
+            required
+        >
+
+        <button type="submit" class="auth-btn primary">
+            Log In to Your Account
+        </button>
+
+    </form>
+
+    <div class="auth-links">
+
+        <a href="#" class="auth-link muted">
+            Forgot your password?
+        </a>
+
+        <a href="{{ url_for('auth.register') }}" class="auth-link highlight">
+            Not a member yet? Join now
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}
