@@ -1,0 +1,491 @@
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--bg-main);
+    color: var(--text-main);
+    font-family: "Inter", system-ui, sans-serif;
+}
+
+/* 🔥 КЛЮЧ */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+/* HEADER */
+.header {
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+}
+
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 64px;
+}
+
+.logo-link {
+    font-weight: 700;
+    font-size: 18px;
+    text-decoration: none;
+    color: var(--text-main);
+}
+
+.nav {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.nav-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    color: var(--text-main);
+}
+
+/* FOOTER */
+.footer {
+    margin-top: 60px;
+    background: var(--bg-card);
+    border-top: 1px solid var(--border);
+}
+
+.footer-inner {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 0;
+}
+
+.footer-links a {
+    display: block;
+    color: var(--text-muted);
+    text-decoration: none;
+    margin-bottom: 6px;
+}
+
+.footer-links a:hover {
+    color: var(--text-main);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding: 15px;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+/* SMALL BUTTON */
+.btn-sm {
+    padding: 8px 14px;
+    font-size: 14px;
+}
+/* ================= AUTH (LOGIN / REGISTER) ================= */
+
+.auth-container {
+    max-width: 420px;
+    margin: 60px auto;
+    background: var(--bg-card);
+    padding: 40px;
+    border-radius: var(--radius);
+    box-shadow: 0 20px 40px rgba(0,0,0,.5);
+}
+
+.auth-title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.auth-container label {
+    display: block;
+    margin: 15px 0 5px;
+    color: var(--text-muted);
+}
+
+.auth-container input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--bg-soft);
+    color: var(--text-main);
+}
+
+.auth-btn {
+    width: 100%;
+    margin-top: 20px;
+    padding: 14px;
+    border-radius: 999px;
+    border: none;
+    background: var(--primary);
+    color: #022c22;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.auth-btn:hover {
+    background: var(--primary-hover);
+}
+
+.auth-link {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: var(--primary);
+    text-decoration: none;
+}
+/* ===== LANDING ===== */
+
+.landing-container {
+    max-width: 520px;
+    text-align: center;
+    animation: fadeInUp .45s ease;
+}
+
+.landing-badge {
+    display: inline-block;
+    background: rgba(34,197,94,0.15);
+    color: var(--primary);
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 18px;
+}
+
+.landing-title {
+    font-size: 34px;
+    line-height: 1.2;
+    margin-bottom: 15px;
+}
+
+.landing-subtitle {
+    font-size: 16px;
+    margin-bottom: 30px;
+}
+
+.landing-actions {
+    margin-bottom: 35px;
+}
+
+.landing-btn {
+    font-size: 16px;
+}
+
+.landing-features {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    border-top: 1px solid var(--border);
+    padding-top: 25px;
+}
+
+.landing-feature {
+    flex: 1;
+    text-align: center;
+}
+
+.landing-feature span {
+    font-size: 22px;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.landing-feature p {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+/* animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.section {
+    margin-top: 60px;
+}
+
+.price {
+    font-size: 26px;
+    font-weight: 700;
+    margin: 10px 0;
+}
+
+.pricing-card {
+    text-align: center;
+}
+
+.pricing-card.highlight {
+    border: 2px solid var(--primary);
+}
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.trainer-avatar {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.pricing-card .price {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+.pricing-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.featured {
+    border: 2px solid #4CAF50;
+    transform: scale(1.05);
+}
+
+.premium-hero {
+    background: linear-gradient(135deg, #111, #222);
+}
+
+.cta-final {
+    text-align: center;
+}
+
+.btn.large {
+    padding: 14px 32px;
+    font-size: 18px;
+}
+/* ===== SaaS LANDING ===== */
+
+.saas-hero {
+    max-width: 700px;
+    margin: 80px auto;
+    text-align: center;
+}
+
+.saas-badge {
+    display: inline-block;
+    background: rgba(34,197,94,0.12);
+    color: var(--primary);
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.saas-title {
+    font-size: 42px;
+    line-height: 1.15;
+    margin-bottom: 20px;
+}
+
+.saas-subtitle {
+    font-size: 17px;
+    color: var(--text-muted);
+    margin-bottom: 35px;
+}
+
+.saas-actions {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+}
+
+.saas-section {
+    margin-top: 80px;
+}
+
+.saas-flow {
+    text-align: center;
+}
+
+.saas-cta {
+    margin: 100px 0;
+    text-align: center;
+}
+
+.saas-cta-card {
+    max-width: 520px;
+    margin: 0 auto;
+}
+/* ===== SaaS HEADER ===== */
+
+.saas-header {
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+}
+
+.header-inner {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo-link {
+    font-size: 18px;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--text-main);
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.header-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.header-link:hover {
+    color: var(--text-main);
+}
+/* ===== FITNESS HEADER ===== */
+
+.fitness-header {
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+}
+
+.header-inner {
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo-link {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: .3px;
+    text-decoration: none;
+    color: var(--text-main);
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.header-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.header-link:hover {
+    color: var(--text-main);
+}
+/* ===== FITNESS LANDING ===== */
+
+.fitness-hero {
+    max-width: 700px;
+    margin: 90px auto;
+    text-align: center;
+}
+
+.fitness-title {
+    font-size: 42px;
+    line-height: 1.15;
+    margin-bottom: 20px;
+}
+
+.fitness-subtitle {
+    font-size: 17px;
+    color: var(--text-muted);
+    margin-bottom: 35px;
+}
+
+.fitness-actions {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+}
+
+.fitness-section {
+    margin-top: 80px;
+}
+
+.fitness-flow {
+    text-align: center;
+}
+
+.fitness-cta {
+    max-width: 520px;
+    margin: 0 auto;
+    text-align: center;
+}
+/* ===== DASHBOARD ===== */
+
+.dashboard-header {
+    margin-bottom: 30px;
+}
+
+.page-subtitle {
+    color: var(--text-muted);
+    margin-top: 6px;
+}
+
+/* STATS */
+.dashboard-stats {
+    margin-bottom: 50px;
+}
+
+.stat-card {
+    text-align: center;
+}
+
+.stat-label {
+    display: block;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+}
+
+.stat-number {
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+/* SECTIONS */
+.section {
+    margin-top: 50px;
+}
+
+.section-title {
+    font-size: 20px;
+    margin-bottom: 16px;
+}
+
+/* RECOMMENDATIONS */
+.recommendations {
+    padding-left: 18px;
+    margin: 0;
+}
+
+.recommendations li {
+    margin-bottom: 8px;
+    color: var(--text-muted);
+}
+

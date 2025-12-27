@@ -1,0 +1,9 @@
+<td>
+    {% if r.user %}
+        <a href="/admin/users/{{ r.user.id }}">
+            {{ r.user.name }} ({{ r.user.email }})
+        </a>
+    {% else %}
+        deleted user #{{ r.user_id }}
+    {% endif %}
+</td>

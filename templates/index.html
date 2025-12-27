@@ -1,0 +1,94 @@
+{% extends "base/layout.html" %}
+{% block title %}FitnessApp — Fitness Center{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <!-- HERO -->
+    <section class="fitness-hero">
+
+        <h1 class="fitness-title">
+            Your fitness center.<br>
+            Online and simple.
+        </h1>
+
+        <p class="fitness-subtitle">
+            Manage trainings, book sessions with trainers and
+            track your activity — all in one fitness center app.
+        </p>
+
+        <div class="fitness-actions">
+            <a href="/register" class="btn">
+                Join the club
+            </a>
+            <a href="/login" class="btn btn-secondary">
+                Member login
+            </a>
+        </div>
+
+    </section>
+
+    <!-- WHAT THIS APP IS -->
+    <section class="section">
+
+        <h2 class="section-title">
+            What you can do as a member
+        </h2>
+
+        <div class="grid grid-3">
+
+            <div class="card">
+                <h3 class="card-title">📅 Book trainings</h3>
+                <p class="muted">
+                    Choose services, trainers and time slots available in the gym.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title">🧑‍🏫 Work with trainers</h3>
+                <p class="muted">
+                    Train with professional coaches assigned to your fitness center.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title">📊 Track your activity</h3>
+                <p class="muted">
+                    See upcoming sessions, history and personal statistics.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="section">
+
+        <div class="card">
+            <h3 class="card-title">How it works</h3>
+
+            <div class="grid grid-3">
+                <div><b>1.</b> Create an account</div>
+                <div><b>2.</b> Choose a service & trainer</div>
+                <div><b>3.</b> Book and train</div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- CTA -->
+    <section class="section" style="text-align:center;">
+        <h2>Ready to start training?</h2>
+        <p class="muted">
+            Join the fitness center and manage your workouts online.
+        </p>
+
+        <a href="/register" class="btn">
+            Create account
+        </a>
+    </section>
+
+</div>
+
+{% endblock %}

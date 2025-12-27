@@ -1,0 +1,40 @@
+{% extends "admin/base_admin.html" %}
+
+{% block content %}
+
+<h2>Reservations Calendar</h2>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+
+<div id="calendar"></div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+  const calendar = new FullCalendar.Calendar(
+    document.getElementById('calendar'),
+    {
+      initialView: 'dayGridMonth',
+      headerToolbar: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+      },
+      events: [
+        {% for r in reservations %}
+          {
+            id: "{{ r.id }}",
+            title: "{{ r.user.name if r.user else 'User' }} - {{ r.service.name if r.service else '' }}",
+            start: "{{ r.date }}T{{ r.time }}",
+            url: "/admin/reservations/{{ r.id }}"
+          },
+        {% endfor %}
+      ]
+    });
+
+  calendar.render();
+});
+</script>
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "base/dashboard.html" %}
+{% set title = "Transactions" %}
+{% set active = "profile" %}
+
+{% block content %}
+
+<div class="card">
+    <h3 class="card-title">💸 Transaction history</h3>
+    <p class="muted">Payments, refunds and balance top-ups</p>
+</div>
+
+{% if transactions %}
+    {% for t in transactions %}
+    <div class="card" style="display:flex; justify-content:space-between; align-items:center;">
+        <div>
+            <b>
+                {% if t.amount > 0 %}
+                    +${{ t.amount }}
+                {% else %}
+                    ${{ t.amount }}
+                {% endif %}
+            </b>
+
+            <div class="muted">
+                {{ t.type|capitalize }}
+            </div>
+        </div>
+
+        <div class="muted">
+            {{ t.created_at.strftime("%Y-%m-%d %H:%M") }}
+        </div>
+    </div>
+    {% endfor %}
+{% else %}
+    <div class="card">
+        <p class="muted">No transactions yet.</p>
+    </div>
+{% endif %}
+
+{% endblock %}

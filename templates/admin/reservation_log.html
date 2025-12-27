@@ -1,0 +1,22 @@
+{% extends "admin/base_admin.html" %}
+
+{% block content %}
+<h2>Reservation #{{ res_id }} — Activity Log</h2>
+
+<table class="table">
+<tr>
+    <th>Time</th>
+    <th>User</th>
+    <th>Action</th>
+</tr>
+
+{% for l in logs %}
+<tr>
+    <td>{{ l.timestamp }}</td>
+    <td>{{ l.user_id }}</td>
+    <td>{{ l.action }}</td>
+</tr>
+{% endfor %}
+</table>
+
+{% endblock %}

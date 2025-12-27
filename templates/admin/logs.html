@@ -1,0 +1,30 @@
+{% extends "admin/base_admin.html" %}
+
+{% block content %}
+<h2>Audit log</h2>
+
+<table class="table">
+<thead>
+<tr>
+    <th>Time</th>
+    <th>User</th>
+    <th>Action</th>
+    <th>Entity</th>
+    <th>ID</th>
+</tr>
+</thead>
+
+<tbody>
+{% for log in logs %}
+<tr>
+    <td>{{ log.timestamp }}</td>
+    <td>{{ log.user_id }}</td>
+    <td>{{ log.action }}</td>
+    <td>{{ log.entity }}</td>
+    <td>{{ log.entity_id }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+{% endblock %}
