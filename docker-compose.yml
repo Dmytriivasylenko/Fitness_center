@@ -30,8 +30,8 @@ services:
       FLASK_ENV: development
       DATABASE_URL: postgresql+psycopg2://postgres:mypassword@postgres:5432/fitness_db
       EMAIL_PASSWORD: ${EMAIL_PASSWORD}
-      STRIPE_SECRET_KEY: sk_test_51Si0ZIQ9hQcWVgvZKqraaMjIevo6nJuOXaWyOLVnY4BIWmVbx9LV8xl1uET4L4AwrfmxD3DT8K5WNhoiT1Lg0um000BtWaIOcX
-      STRIPE_PUBLIC_KEY: pk_test_51Si0ZIQ9hQcWVgvZnE9CUv8cwEKPPYzMjvKE2FG6xkLVOc1OGsVwbzmwH4Z4yGJv2UlvbB8pPuESM7RjgloccDZY00Ty7i4xez
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY}
+      STRIPE_PUBLIC_KEY: ${STRIPE_PUBLIC_KEY}
     ports:
       - "5000:5000"
 
@@ -51,8 +51,8 @@ services:
     environment:
       DATABASE_URL: postgresql+psycopg2://postgres:mypassword@postgres:5432/fitness_db
       EMAIL_PASSWORD: ${EMAIL_PASSWORD}
-      STRIPE_SECRET_KEY: sk_test_51Si0ZIQ9hQcWVgvZKqraaMjIevo6nJuOXaWyOLVnY4BIWmVbx9LV8xl1uET4L4AwrfmxD3DT8K5WNhoiT1Lg0um000BtWaIOcX
-      STRIPE_PUBLIC_KEY: pk_test_51Si0ZIQ9hQcWVgvZnE9CUv8cwEKPPYzMjvKE2FG6xkLVOc1OGsVwbzmwH4Z4yGJv2UlvbB8pPuESM7RjgloccDZY00Ty7i4xez
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY}
+      STRIPE_PUBLIC_KEY: ${STRIPE_PUBLIC_KEY}
     volumes:
       - ./app:/app/app
 
