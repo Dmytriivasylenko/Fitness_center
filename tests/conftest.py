@@ -1,6 +1,8 @@
 import os
 import sys
 
+from create_app.main import create_app
+
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 if BASE_DIR not in sys.path:
     sys.path.insert(0, BASE_DIR)
@@ -125,14 +127,8 @@ def reservation(db_session, user, trainer, service):
     return r
 
 @pytest.fixture
-def client(db_session, monkeypatch):
-    import app.database as db_module
-    monkeypatch.setattr(db_module, "db_session", db_session)
-
-    from app.app import app as flask_app
-    flask_app.config.update(
-        TESTING=True,
-        WTF_CSRF_ENABLED=False,
-    )
-    with flask_app.test_client() as c:
-        yield c
+def client():
+    app = create_app()
+    app.config['TESTING'] = True
+    with app.test_client() as client:
+        yield client
