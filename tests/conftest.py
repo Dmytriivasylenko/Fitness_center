@@ -123,3 +123,16 @@ def reservation(db_session, user, trainer, service):
     db_session.add(r)
     db_session.commit()
     return r
+
+@pytest.fixture
+def client(db_session, monkeypatch):
+    import app.database as db_module
+    monkeypatch.setattr(db_module, "db_session", db_session)
+
+    from app.app import app as flask_app
+    flask_app.config.update(
+        TESTING=True,
+        WTF_CSRF_ENABLED=False,
+    )
+    with flask_app.test_client() as c:
+        yield c
