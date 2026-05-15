@@ -1,0 +1,66 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    name: Run tests
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: mypassword
+          POSTGRES_DB: fitness_db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      SECRET_KEY: test-secret-key-32-chars-minimum!!
+      DATABASE_URL: postgresql+psycopg2://postgres:mypassword@localhost:5432/fitness_db
+      CELERY_BROKER_URL: amqp://guest:guest@localhost:5672//
+      STRIPE_SECRET_KEY: sk_test_placeholder
+      STRIPE_PUBLIC_KEY: pk_test_placeholder
+      EMAIL_PASSWORD: placeholder
+      MAIL_USERNAME: test@example.com
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install -r requirements-dev.txt
+
+      - name: Run tests
+        run: pytest
+
+  docker:
+    name: Build Docker image
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build -t fitness-center:${{ github.sha }} .

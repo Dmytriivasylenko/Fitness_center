@@ -1,0 +1,62 @@
+# ---- Python ----
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pdb
+
+# Virtual envs
+.venv/
+.venv1/
+env/
+venv/
+ENV/
+
+# ---- Flask / Build ----
+instance/
+*.db
+*.sqlite
+*.sqlite3
+db*.db
+identifier.sqlite
+
+# Alembic artifacts
+alembic/versions/*.pyc
+alembic/**/__pycache__/
+alembic.ini~
+
+# Uploaded files
+app/static/uploads/
+
+# Logs
+*.log
+logs/
+celerybeat-schedule
+celerybeat.pid
+
+# Cache
+.cache/
+pytest_cache/
+pip-wheel-metadata/
+dist/
+build/
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env variables
+.env
+.env.*
+.env.local
+.env.production
+
+# Docker
+*.pid
+*.seed
+docker-data/
