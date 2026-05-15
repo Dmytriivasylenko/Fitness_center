@@ -43,9 +43,12 @@ def client(db_session, monkeypatch):
 
     from app.app import app as flask_app
     flask_app.config.update(TESTING=True, WTF_CSRF_ENABLED=False)
+
+    # Prevent shutdown_session from calling .remove() on plain Session
+    monkeypatch.setattr("app.app.db_session", db_session)
+
     with flask_app.test_client() as c:
         yield c
-
 
 @pytest.fixture
 def gym(db_session):
