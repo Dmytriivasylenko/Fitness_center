@@ -1,8 +1,6 @@
 import os
 import sys
 
-from create_app.main import create_app
-
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 if BASE_DIR not in sys.path:
     sys.path.insert(0, BASE_DIR)
@@ -17,7 +15,6 @@ os.environ["EMAIL_PASSWORD"] = "placeholder"
 os.environ["MAIL_USERNAME"] = "test@example.com"
 
 import pytest
-from datetime import datetime
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from werkzeug.security import generate_password_hash
@@ -37,6 +34,17 @@ def db_session():
     yield session
     session.close()
     Base.metadata.drop_all(engine)
+
+
+@pytest.fixture
+def client(db_session, monkeypatch):
+    import app.database as db_module
+    monkeypatch.setattr(db_module, "db_session", db_session)
+
+    from app.app import app as flask_app
+    flask_app.config.update(TESTING=True, WTF_CSRF_ENABLED=False)
+    with flask_app.test_client() as c:
+        yield c
 
 
 @pytest.fixture
@@ -125,10 +133,3 @@ def reservation(db_session, user, trainer, service):
     db_session.add(r)
     db_session.commit()
     return r
-
-@pytest.fixture
-def client():
-    app = create_app()
-    app.config['TESTING'] = True
-    with app.test_client() as client:
-        yield client
