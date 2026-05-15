@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>
+        {% block title %}Authentication{% endblock %}
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- AUTH STYLES -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+
+    {% block head %}{% endblock %}
+</head>
+<body>
+
+<div class="auth-wrapper">
+    {% block content %}{% endblock %}
+</div>
+
+</body>
+</html>

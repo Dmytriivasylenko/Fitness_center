@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}FitnessApp{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- 🔥 ОСНОВНИЙ THEME -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
+
+    {% block head %}{% endblock %}
+</head>
+<body>
+
+{% if not current_user.is_authenticated %}
+    {% include "partials/landing_header.html" %}
+{% endif %}
+
+{% block content %}{% endblock %}
+
+{% if not current_user.is_authenticated %}
+    {% include "partials/landing_footer.html" %}
+{% endif %}
+
+</body>
+</html>

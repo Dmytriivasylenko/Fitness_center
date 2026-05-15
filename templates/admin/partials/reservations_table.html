@@ -1,0 +1,78 @@
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>User</th>
+        <th>Trainer</th>
+        <th>Service</th>
+        <th>Date</th>
+        <th>Status</th>
+        <th></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    {% if reservations %}
+        {% for r in reservations %}
+            <tr>
+                <td>{{ r.id }}</td>
+
+                <td>
+                    {% if r.user %}
+                        <a href="/admin/users/{{ r.user.id }}">
+                            {{ r.user.login }} ({{ r.user.email }})
+                        </a>
+                    {% else %}
+                        deleted user #{{ r.user_id }}
+                    {% endif %}
+                </td>
+
+                <td>{{ r.trainer.name if r.trainer else "-" }}</td>
+                <td>{{ r.service.name if r.service else "-" }}</td>
+                <td>{{ r.date }} {{ r.time }}</td>
+
+                <td>
+                    <span class="badge bg-secondary">
+                        {{ r.ui_status }}
+                    </span>
+                </td>
+
+                <td class="text-end">
+                    <a class="btn btn-sm btn-outline-primary"
+                       href="/admin/reservations/{{ r.id }}">
+                        Details
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        <tr>
+            <td colspan="7" class="text-center text-muted">
+                No reservations found
+            </td>
+        </tr>
+    {% endif %}
+    </tbody>
+</table>
+
+<div class="d-flex justify-content-between mt-3">
+
+    <button
+        class="btn btn-outline-secondary"
+        {% if not prev_page %}disabled{% endif %}
+        hx-get="/admin/reservations/partial?page={{ prev_page }}&q={{ q }}&status={{ status }}&per_page={{ per_page }}"
+        hx-target="#reservations-table">
+        « Prev
+    </button>
+
+    <span>Page {{ page }} / {{ total_pages }}</span>
+
+    <button
+        class="btn btn-outline-secondary"
+        {% if not next_page %}disabled{% endif %}
+        hx-get="/admin/reservations/partial?page={{ next_page }}&q={{ q }}&status={{ status }}&per_page={{ per_page }}"
+        hx-target="#reservations-table">
+        Next »
+    </button>
+
+</div>

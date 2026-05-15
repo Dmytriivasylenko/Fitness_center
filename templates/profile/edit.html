@@ -1,0 +1,40 @@
+{% extends "base/dashboard.html" %}
+{% set title = "Edit Profile" %}
+{% set active = "profile" %}
+
+{% block content %}
+
+<div class="card">
+    <h3 class="card-title">✏️ Edit Profile</h3>
+    <p class="muted">
+        Update your personal information
+    </p>
+</div>
+
+<form method="post" class="card">
+
+    <label>Username</label>
+    <input type="text" name="login" value="{{ user.login }}" required>
+
+    <label>Email</label>
+    <input type="email" name="email" value="{{ user.email }}" required>
+
+    <label>Phone</label>
+    <input type="text" name="phone" value="{{ user.phone }}">
+
+    <label>Date of Birth</label>
+    <input type="date" name="birth_date" value="{{ user.birth_date }}">
+
+    <div style="margin-top: 20px;">
+        <button type="submit" class="auth-btn">
+            💾 Save Changes
+        </button>
+
+        <a href="/profile" class="auth-btn" style="background:#333; margin-left:10px;">
+            Cancel
+        </a>
+    </div>
+
+</form>
+
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends "base/dashboard.html" %}
+{% set title = "My Reservations" %}
+{% set active = "reservations" %}
+
+{% block content %}
+
+<div class="card">
+    <h3 class="card-title">📅 My Reservations</h3>
+    <p class="muted">
+        View and manage your training schedule
+    </p>
+</div>
+
+{% if reservations %}
+
+    <!-- UPCOMING -->
+    <div class="card">
+        <h4 class="card-title">⏰ Upcoming Sessions</h4>
+
+        {% set has_upcoming = false %}
+        {% for r in reservations %}
+            {% if r.status == "upcoming" %}
+                {% set has_upcoming = true %}
+                <div class="reservation-row">
+
+                    <div>
+                        <b>{{ r.service.name }}</b><br>
+                        <span class="muted">
+                            {{ r.trainer.name }} • {{ r.date }} at {{ r.time }}
+                        </span>
+                    </div>
+
+                    <div class="reservation-actions">
+                        <a href="/reservations/{{ r.id }}/edit" class="btn-sm">
+                            Edit
+                        </a>
+                        <a href="/reservations/{{ r.id }}/cancel"
+                           class="btn-sm danger"
+                           onclick="return confirm('Cancel this reservation?');">
+                            Cancel
+                        </a>
+                    </div>
+
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        {% if not has_upcoming %}
+            <p class="muted">No upcoming reservations.</p>
+        {% endif %}
+    </div>
+
+    <!-- PAST -->
+    <div class="card">
+        <h4 class="card-title">✅ Past Sessions</h4>
+
+        {% set has_past = false %}
+        {% for r in reservations %}
+            {% if r.status != "upcoming" %}
+                {% set has_past = true %}
+                <div class="reservation-row muted">
+
+                    <div>
+                        <b>{{ r.service.name }}</b><br>
+                        {{ r.trainer.name }} • {{ r.date }}
+                    </div>
+
+                    <div>
+                        {% if r.status == "completed" %}
+                            <span class="status completed">Completed</span>
+                        {% elif r.status == "canceled" %}
+                            <span class="status canceled">Canceled</span>
+                        {% endif %}
+                    </div>
+
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        {% if not has_past %}
+            <p class="muted">No past reservations.</p>
+        {% endif %}
+    </div>
+
+{% else %}
+
+<div class="card">
+    <p class="muted">
+        You don’t have any reservations yet.
+    </p>
+    <a href="/services" class="auth-btn">
+        ➕ Book Your First Training
+    </a>
+</div>
+
+{% endif %}
+
+{% endblock %}

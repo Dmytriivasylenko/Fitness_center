@@ -1,0 +1,31 @@
+{% extends "base_dashboard.html" %}
+{% block content %}
+
+<h1>Manage Trainers</h1>
+
+<div class="card">
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Gym ID</th>
+            <th></th>
+        </tr>
+        {% for t in trainers %}
+        <tr>
+            <td>{{ t.name }}</td>
+            <td>{{ t.gym_id }}</td>
+            <td>
+                <a href="/admin/trainers/{{ t.id }}/edit" class="btn btn-edit">Edit</a>
+                <form method="POST"
+                      action="/admin/trainers/{{ t.id }}/delete"
+                      style="display:inline;"
+                      onsubmit="return confirm('Delete this trainer?');">
+                    <button type="submit" class="btn btn-delete">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock %}

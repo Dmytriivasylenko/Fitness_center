@@ -1,0 +1,31 @@
+{% extends "base_dashboard.html" %}
+{% block content %}
+
+<h1>Manage Services</h1>
+
+<div class="card">
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th></th>
+        </tr>
+        {% for s in services %}
+        <tr>
+            <td>{{ s.name }}</td>
+            <td>{{ s.price }}$</td>
+            <td>
+                <a href="/admin/services/{{ s.id }}/edit" class="btn btn-edit">Edit</a>
+                <form method="POST"
+                      action="/admin/services/{{ s.id }}/delete"
+                      style="display:inline;"
+                      onsubmit="return confirm('Delete this service?');">
+                    <button type="submit" class="btn btn-delete">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock %}

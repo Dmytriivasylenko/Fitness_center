@@ -1,0 +1,18 @@
+{% if breadcrumbs %}
+<div class="breadcrumbs">
+
+    {% for item in breadcrumbs %}
+        {% if not loop.last and item.url %}
+            <a href="{{ item.url }}" class="breadcrumb-link">
+                {{ item.label }}
+            </a>
+            <span class="breadcrumb-separator">›</span>
+        {% else %}
+            <span class="breadcrumb-current">
+                {{ item.label }}
+            </span>
+        {% endif %}
+    {% endfor %}
+
+</div>
+{% endif %}

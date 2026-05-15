@@ -1,0 +1,43 @@
+{% extends "admin/layout.html" %}
+
+{% block content %}
+
+<h2>Reservations</h2>
+
+<div class="card p-3 mb-3">
+    <div class="row">
+        <div class="col-md-4">
+            <input
+                class="form-control"
+                type="text"
+                placeholder="Search..."
+                hx-get="/admin/reservations/partial"
+                hx-target="#reservations-table"
+                hx-trigger="keyup changed delay:300ms"
+                name="q">
+        </div>
+
+        <div class="col-md-3">
+            <select
+                class="form-select"
+                hx-get="/admin/reservations/partial"
+                hx-target="#reservations-table"
+                name="status">
+                <option value="all">All</option>
+                <option value="upcoming">Upcoming</option>
+                <option value="today">Today</option>
+                <option value="past">Past</option>
+                <option value="canceled">Canceled</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<!-- TABLE WILL LOAD HERE -->
+<div
+    id="reservations-table"
+    hx-get="/admin/reservations/partial"
+    hx-trigger="load">
+</div>
+
+{% endblock %}

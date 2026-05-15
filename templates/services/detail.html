@@ -1,0 +1,58 @@
+{% extends "base/dashboard.html" %}
+{% set title = service.name %}
+{% set active = "services" %}
+
+{% block content %}
+
+<!-- SERVICE HEADER -->
+<div class="card">
+    <h3 class="card-title">💪 {{ service.name }}</h3>
+    <p class="muted">
+        {{ service.description if service.description else
+           "This training service is designed to help you achieve better results faster." }}
+    </p>
+</div>
+
+<!-- SERVICE INFO -->
+<div class="card">
+    <p class="muted"><b>Duration</b></p>
+    <p>{{ service.duration }} minutes</p>
+
+    <p class="muted"><b>Price</b></p>
+    <p><b>{{ service.price }} $</b></p>
+
+    <a href="/book/{{ service.id }}" class="auth-btn" style="margin-top:16px;">
+        📅 Book This Service
+    </a>
+</div>
+
+<!-- TRAINERS -->
+<div class="card">
+    <h4 class="card-title">🧑‍🏫 Available Trainers</h4>
+
+    {% if trainers %}
+        {% for t in trainers %}
+            <div class="trainer-row">
+                <div>
+                    <b>{{ t.name }}</b><br>
+                    <span class="muted">
+                        Certified trainer
+                    </span>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="muted">
+            No trainers available for this service right now.
+        </p>
+    {% endif %}
+</div>
+
+<!-- BACK -->
+<div class="card">
+    <a href="/services" class="auth-btn" style="background:#333;">
+        ← Back to Services
+    </a>
+</div>
+
+{% endblock %}

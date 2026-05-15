@@ -1,0 +1,18 @@
+{% extends "admin/base_admin.html" %}
+
+{% block content %}
+<h2>{{ 'Edit' if trainer else 'Add' }} Trainer</h2>
+
+<form method="post" class="form">
+    <label>Name</label>
+    <input name="name" value="{{ trainer.name if trainer }}" required>
+
+    <label>Specialization</label>
+    <input name="specialization" value="{{ trainer.specialization if trainer }}">
+
+    <label>Gym ID</label>
+    <input name="gym_id" type="number" value="{{ trainer.gym_id if trainer else '' }}" required>
+
+    <button class="btn-primary">Save</button>
+</form>
+{% endblock %}

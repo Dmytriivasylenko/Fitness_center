@@ -1,0 +1,133 @@
+{% extends "base_dashboard.html" %}
+{% block content %}
+
+<h1>User Management</h1>
+
+<style>
+    .filters {
+        background: #1d1d1d;
+        padding: 18px;
+        border-radius: 12px;
+        margin-bottom: 25px;
+    }
+
+    input, select {
+        padding: 8px 12px;
+        border-radius: 8px;
+        background: #2b2b2b;
+        color: white;
+        border: none;
+        margin-right: 12px;
+    }
+
+    table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+    th, td { padding: 12px; border-bottom: 1px solid #333; }
+    th { color: #aaa; }
+
+    .badge {
+        padding: 4px 10px;
+        border-radius: 8px;
+        font-size: 12px;
+        color: white;
+    }
+
+    .b-admin { background: #4fa3ff; }
+    .b-user { background: #757575; }
+    .b-banned { background: #b71c1c; }
+
+    .btn {
+        padding: 7px 12px;
+        background: #4fa3ff;
+        color: white;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 13px;
+        margin-right: 6px;
+    }
+
+    .btn:hover { background: #2d82d6; }
+
+    .btn-danger { background: #b71c1c; }
+    .btn-danger:hover { background: #951313; }
+
+    .btn-green { background: #43a047; }
+    .btn-green:hover { background: #2e7d32; }
+</style>
+
+<div class="filters">
+    <form method="GET">
+        <input type="text" name="search" placeholder="Search login/email" value="{{ selected.search }}">
+
+        <select name="role">
+            <option value="all" {% if selected.role == "all" %}selected{% endif %}>All roles</option>
+            <option value="admins" {% if selected.role == "admins" %}selected{% endif %}>Admins</option>
+            <option value="users" {% if selected.role == "users" %}selected{% endif %}>Users</option>
+        </select>
+
+        <select name="status">
+            <option value="all" {% if selected.status == "all" %}selected{% endif %}>All statuses</option>
+            <option value="active" {% if selected.status == "active" %}selected{% endif %}>Active</option>
+            <option value="banned" {% if selected.status == "banned" %}selected{% endif %}>Banned</option>
+        </select>
+
+        <button class="btn" type="submit">Apply</button>
+    </form>
+</div>
+
+<div class="card">
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Login</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Role</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for u in users %}
+    <tr>
+        <td>{{ u.id }}</td>
+        <td>{{ u.login }}</td>
+        <td>{{ u.email }}</td>
+        <td>{{ u.phone }}</td>
+
+        <td>
+            {% if u.is_admin %}
+                <span class="badge b-admin">Admin</span>
+            {% else %}
+                <span class="badge b-user">User</span>
+            {% endif %}
+        </td>
+
+        <td>
+            {% if u.is_banned %}
+                <span class="badge b-banned">Banned</span>
+            {% else %}
+                Active
+            {% endif %}
+        </td>
+
+        <td>
+            <a class="btn" href="/admin/users/{{ u.id }}">View</a>
+            <a class="btn" href="/admin/users/{{ u.id }}/edit">Edit</a>
+
+            {% if u.is_banned %}
+                <form method="POST" action="/admin/users/{{ u.id }}/unban" style="display:inline;">
+                    <button class="btn-green" type="submit">Unban</button>
+                </form>
+            {% else %}
+                <form method="POST" action="/admin/users/{{ u.id }}/ban"
+                      style="display:inline;"
+                      onsubmit="return confirm('Ban this user?');">
+                    <button class="btn-danger" type="submit">Ban</button>
+                </form>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+</div>
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base/dashboard.html" %}
+{% set title = "Payment" %}
+{% set active = "profile" %}
+
+{% block content %}
+
+<div class="card">
+    <h3 class="card-title">💳 Payment</h3>
+    <p class="muted">
+        Enter card details to complete the payment
+    </p>
+</div>
+
+<div class="card">
+    <p class="muted"><b>Amount:</b></p>
+    <p><b>${{ amount }}</b></p>
+</div>
+
+<form method="post" action="/profile/payment/process" class="card">
+
+    <label>Card Number</label>
+    <input type="text" name="card" placeholder="4242 4242 4242 4242" required>
+
+    <label>Expiration</label>
+    <input type="text" name="exp" placeholder="12/28" required>
+
+    <label>CVC</label>
+    <input type="text" name="cvc" placeholder="123" required>
+
+    <input type="hidden" name="amount" value="{{ amount }}">
+
+    <button class="auth-btn" style="margin-top:15px;">
+        ✔ Pay Now
+    </button>
+
+</form>
+
+{% endblock %}

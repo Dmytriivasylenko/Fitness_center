@@ -1,0 +1,33 @@
+{% extends "admin/base_admin.html" %}
+
+{% block title %}Admin — Dashboard{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">Dashboard</h2>
+
+<div class="dashboard-grid">
+
+    <div class="stat-card">
+        <div class="stat-title">Users</div>
+        <div class="stat-value">{{ users_count }}</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-title">Trainers</div>
+        <div class="stat-value">{{ trainers_count }}</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-title">Services</div>
+        <div class="stat-value">{{ services_count }}</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-title">Reservations</div>
+        <div class="stat-value">{{ reservations_count }}</div>
+    </div>
+
+</div>
+
+{% endblock %}

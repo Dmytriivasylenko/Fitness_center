@@ -1,0 +1,30 @@
+{% extends "admin/base_admin.html" %}
+
+{% block content %}
+<h2>User Profile #{{ user.id }}</h2>
+
+<p>Email: {{ user.email }}</p>
+
+<h3>Reservations</h3>
+
+<table class="table">
+<thead>
+<tr>
+    <th>ID</th>
+    <th>Date</th>
+    <th>Trainer</th>
+    <th>Service</th>
+</tr>
+</thead>
+<tbody>
+{% for r in reservations %}
+<tr>
+    <td>{{ r.id }}</td>
+    <td>{{ r.date }} {{ r.time }}</td>
+    <td>{{ r.trainer_id }}</td>
+    <td>{{ r.service_id }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}

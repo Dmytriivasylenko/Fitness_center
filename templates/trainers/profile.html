@@ -1,0 +1,45 @@
+{% extends "base/dashboard.html" %}
+{% block title %}Trainer Profile{% endblock %}
+
+{% block content %}
+
+<h1>{{ trainer.name }}</h1>
+
+<p>
+    <b>Specialization:</b>
+    {{ trainer.specialization if trainer.specialization else "Fitness Trainer" }}
+</p>
+
+<hr>
+
+<h3>Available Services</h3>
+
+{% if services %}
+<table width="100%" cellpadding="8" cellspacing="0" border="1">
+    <tr>
+        <th align="left">Service</th>
+        <th align="left">Price</th>
+        <th align="left">Action</th>
+    </tr>
+
+    {% for s in services %}
+    <tr>
+        <td>{{ s.name }}</td>
+        <td>{{ s.price }} $</td>
+        <td>
+            <a href="/book/{{ s.id }}">Book</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>No services available.</p>
+{% endif %}
+
+<hr>
+
+<p>
+    <a href="/trainers">← Back to trainers</a>
+</p>
+
+{% endblock %}

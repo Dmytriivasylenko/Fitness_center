@@ -1,0 +1,25 @@
+{% extends "base/dashboard.html" %}
+{% set title = "Add Funds" %}
+{% set active = "profile" %}
+
+{% block content %}
+
+<div class="card">
+    <h3 class="card-title">💳 Add Funds</h3>
+    <p class="muted">
+        Enter the amount you want to add to your balance
+    </p>
+</div>
+
+<form action="/create_checkout_session" method="post" class="card">
+
+    <label>Amount ($)</label>
+    <input type="number" name="amount" min="1" required>
+
+    <button class="auth-btn" style="margin-top:10px;">
+        Pay with Stripe
+    </button>
+
+</form>
+
+{% endblock %}

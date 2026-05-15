@@ -20,7 +20,7 @@ from app.routes.profile import profile_bp
 from app.routes.admin import admin_bp
 from app.tasks import test_task
 
-# ==================== FLASK APP ====================
+
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 app = Flask(
@@ -29,7 +29,7 @@ app = Flask(
     static_folder=os.path.join(BASE_DIR, "static"),
 )
 
-# ==================== CONFIG ====================
+
 app.config["SECRET_KEY"] = settings.secret_key
 app.config["UPLOAD_FOLDER"] = settings.upload_folder
 

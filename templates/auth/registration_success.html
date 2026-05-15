@@ -1,0 +1,29 @@
+{% extends "base/auth.html" %}
+{% block title %}Welcome to the Club{% endblock %}
+{% block content %}
+
+<div class="auth-container fitness-auth success" style="text-align: center;">
+
+    <h1 class="auth-title">Welcome to the Fitness Club 💪</h1>
+
+    <p class="auth-subtitle">
+        Your account is ready. You're one step closer to a stronger, healthier you.
+    </p>
+
+    <div class="success-highlights">
+        <p>✔ Access personalized workouts</p>
+        <p>✔ Manage your membership</p>
+        <p>✔ Book classes & personal training</p>
+    </div>
+
+    <a href="{{ url_for('auth.login') }}" class="auth-btn primary">
+        Log In & Start Training
+    </a>
+
+    <p class="auth-note">
+        Let’s make progress — consistency starts today.
+    </p>
+
+</div>
+
+{% endblock %}

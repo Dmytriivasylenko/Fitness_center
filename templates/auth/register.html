@@ -1,0 +1,84 @@
+{% extends "base/auth.html" %}
+{% block title %}Join Our Fitness Club{% endblock %}
+{% block content %}
+
+<div class="auth-container fitness-auth">
+
+    <h1 class="auth-title">Join the Fitness Community</h1>
+    <p class="auth-subtitle">
+        Create your account to track workouts, manage memberships, and book classes
+    </p>
+
+    <form method="post" class="auth-form">
+
+        <div class="grid-2">
+            <div>
+                <label for="login">Username</label>
+                <input
+                    type="text"
+                    id="login"
+                    name="login"
+                    placeholder="Choose a username"
+                    required
+                >
+            </div>
+
+            <div>
+                <label for="email">Email Address</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="you@example.com"
+                    required
+                >
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <div>
+                <label for="password">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Create a strong password"
+                    required
+                >
+            </div>
+
+            <div>
+                <label for="birth_date">Date of Birth</label>
+                <input
+                    type="date"
+                    id="birth_date"
+                    name="birth_date"
+                    required
+                >
+            </div>
+        </div>
+
+        <label for="phone">Phone Number</label>
+        <input
+            type="tel"
+            id="phone"
+            name="phone"
+            placeholder="+48 123 456 789"
+            required
+        >
+
+        <button type="submit" class="auth-btn primary">
+            Start Your Fitness Journey
+        </button>
+
+    </form>
+
+    <div class="auth-links">
+        <a href="{{ url_for('auth.login') }}" class="auth-link">
+            Already a member? Log in
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}

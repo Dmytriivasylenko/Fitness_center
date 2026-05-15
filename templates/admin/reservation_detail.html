@@ -1,0 +1,75 @@
+{% extends "admin/base_admin.html" %}
+
+{% block content %}
+
+<h2 class="mb-3">Reservation #{{ r.id }}</h2>
+
+<ul class="list-group mb-3">
+
+    <li class="list-group-item">
+        <strong>User:</strong>
+        {% if r.user %}
+            <a href="/admin/users/{{ r.user.id }}">
+                {{ r.user.login }} ({{ r.user.email }})
+            </a>
+        {% else %}
+            deleted user #{{ r.user_id }}
+        {% endif %}
+    </li>
+
+    <li class="list-group-item">
+        <strong>Trainer:</strong>
+        {{ r.trainer.name if r.trainer else "-" }}
+    </li>
+
+    <li class="list-group-item">
+        <strong>Service:</strong>
+        {{ r.service.name if r.service else "-" }}
+    </li>
+
+    <li class="list-group-item">
+        <strong>Date:</strong>
+        {{ r.date }} {{ r.time }}
+    </li>
+
+    <li class="list-group-item">
+        <strong>Status:</strong>
+        {{ r.status }}
+    </li>
+</ul>
+
+<div class="d-flex gap-2 mb-4">
+    <a href="/admin/reservations/{{ r.id }}/log" class="btn btn-outline-secondary">
+        🧾 View Change Log
+    </a>
+
+    <a href="/admin/reservations" class="btn btn-outline-dark">
+        ← Back
+    </a>
+</div>
+
+<hr>
+
+<h4 class="mb-2">Reschedule</h4>
+
+<form method="post"
+      action="/admin/reservations/{{ r.id }}/reschedule"
+      class="d-flex flex-column gap-2"
+      style="max-width: 320px">
+
+    <label>Date</label>
+    <input name="date" class="form-control" placeholder="YYYY-MM-DD" required>
+
+    <label>Time</label>
+    <input name="time" class="form-control" placeholder="HH:MM" required>
+
+    <button class="btn btn-primary mt-2">Save</button>
+</form>
+
+{% if error %}
+<div class="alert alert-danger mt-3">
+    {{ error }}
+</div>
+{% endif %}
+
+{% endblock %}

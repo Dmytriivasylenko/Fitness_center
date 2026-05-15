@@ -1,0 +1,90 @@
+/login [get, post]
+/user [get, put, post]
+/user/funds [get, post]
+/user/reservations [get, post]
+/user/reservations/<reservation_id> [get, put, delete]
+/user/checkout [get, post, put]
+/fitness_center [get]
+/fitness_center/<id> [get]
+/fitness_center/<id>/trainer [get]
+/fitness_center/<id>/trainer/<trainer_id> [get]
+/fitness_center/<id>/trainer/<trainer_id>/rating [get, post, put]
+/fitness_center/<id>/services [get]
+/fitness_center/<id>/services/<service_id> [get]
+/register [get, post]
+/fitness_center/<id>/loyality_programs [get]
+
+
+USER:
+
+    1. Name
+    2. Fuds
+    3. Login
+    4. Password
+    5. Birth_date
+    6. Phone
+
+RESERVATION:
+
+    1. User
+    2. Trainer
+    3. Service
+    4. Date
+    5. Time
+
+TRAINER:
+
+    1. Name
+    2. Fitness_center
+    3. Age
+    4. Sex
+
+REVIEW(RATING):
+
+    1. Trainer
+    2. User
+    3. Points
+    4. Text
+
+FITNESS CENTER:
+
+    1. Adress
+    2. Name
+    3. Contacts
+
+SERVICE:
+
+    1. Name
+    2. Duration
+    3. Description
+    4. Price
+    5. Fitness center
+    6. Max Atendees
+
+SHEDULE:
+
+    1. Date
+    2. Trainer
+    3. Start time
+    4. End time
+
+BALANCE:
+    1. User
+    2. Services
+    3. Add balance
+    4. Points
+    5.Price
+
+
+
+
+
+
+
+
+
+
+
+
+
+

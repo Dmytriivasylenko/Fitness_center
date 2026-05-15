@@ -1,0 +1,54 @@
+{% extends "base/dashboard.html" %}
+{% set title = "Edit Reservation" %}
+{% set active = "reservations" %}
+
+{% block content %}
+
+<div class="card">
+    <h3 class="card-title">📅 Edit Reservation</h3>
+    <p class="muted">
+        Change date or time for your training session
+    </p>
+</div>
+
+<div class="card">
+    <p class="muted"><b>Service</b></p>
+    <p>{{ reservation.service.name if reservation.service else "—" }}</p>
+
+    <p class="muted"><b>Trainer</b></p>
+    <p>{{ reservation.trainer.name if reservation.trainer else "—" }}</p>
+</div>
+
+<form method="post" class="card">
+
+    <label for="date">Date</label>
+    <input
+        type="date"
+        id="date"
+        name="date"
+        value="{{ reservation.date }}"
+        required
+    >
+
+    <label for="time">Time</label>
+    <input
+        type="time"
+        id="time"
+        name="time"
+        value="{{ reservation.time }}"
+        required
+    >
+
+    <div style="margin-top: 20px;">
+        <button type="submit" class="auth-btn">
+            💾 Save Changes
+        </button>
+
+        <a href="/reservations" class="auth-btn" style="background:#333; margin-left:10px;">
+            Cancel
+        </a>
+    </div>
+
+</form>
+
+{% endblock %}

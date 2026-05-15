@@ -1,0 +1,191 @@
+{% extends "base/dashboard.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<h1 class="page-title">Dashboard</h1>
+<p class="page-subtitle">
+    Welcome back, <strong>{{ current_user.login }}</strong> 👋
+</p>
+
+<style>
+    :root {
+        --bg-card: #111827;
+        --text-muted: #9ca3af;
+        --text-main: #e5e7eb;
+        --green: #6fcf97;
+        --red: #eb5757;
+        --yellow: #f2c94c;
+        --blue: #56ccf2;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+        margin-top: 32px;
+    }
+
+    .stat-card {
+        background: linear-gradient(180deg, #111827, #0b1220);
+        border-radius: 18px;
+        padding: 24px;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.45);
+        transition: transform .25s ease, box-shadow .25s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 40px rgba(0,0,0,.6);
+    }
+
+    .stat-title {
+        font-size: 13px;
+        letter-spacing: .04em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        margin-bottom: 6px;
+    }
+
+    .stat-value {
+        font-size: 34px;
+        font-weight: 800;
+    }
+
+    .green { color: var(--green); }
+    .red { color: var(--red); }
+    .yellow { color: var(--yellow); }
+    .blue { color: var(--blue); }
+
+    .section { margin-top: 48px; }
+    .section h2 { margin-bottom: 14px; color: var(--text-main); }
+
+    .card {
+        background: var(--bg-card);
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 12px 24px rgba(0,0,0,.4);
+        margin-bottom: 10px;
+    }
+
+    .hint { color: var(--text-muted); font-style: italic; }
+    .btn-sm {
+        padding: 7px 12px;
+        border-radius: 8px;
+        font-size: 13px;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        display: inline-block;
+    }
+</style>
+
+<!-- STAT CARDS -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-title">Total reservations</div>
+        <div class="stat-value blue">{{ total_reservations }}</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-title">Completed</div>
+        <div class="stat-value green">{{ completed_reservations }}</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-title">Canceled</div>
+        <div class="stat-value red">{{ canceled_reservations }}</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-title">Total spent</div>
+        <div class="stat-value yellow">${{ total_spent }}</div>
+    </div>
+</div>
+
+<!-- NEXT SESSION -->
+<div class="section">
+    <h2>Next session</h2>
+
+    <div class="card">
+        {% if next_reservation %}
+            <p>
+                <strong>{{ next_reservation.service.name }}</strong><br>
+                {{ next_reservation.date }} at {{ next_reservation.time }}<br>
+                Trainer: {{ next_reservation.trainer.name }}
+            </p>
+        {% else %}
+            <p class="hint">You have no upcoming sessions.</p>
+        {% endif %}
+    </div>
+</div>
+
+<!-- RECOMMENDATIONS -->
+<div class="section">
+    <h2>Recommendations</h2>
+
+    <div class="card">
+        {% if recommendations %}
+            <ul style="padding-left:16px;">
+                {% for r in recommendations %}
+                    <li>💡 {{ r }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="hint">No recommendations yet.</p>
+        {% endif %}
+    </div>
+</div>
+
+<!-- RECENT RESERVATIONS + ACTIONS -->
+<div class="section">
+    <h2>Recent reservations</h2>
+
+    {% if recent_reservations %}
+        {% for r in recent_reservations %}
+            <div class="card">
+
+                <p>
+                    <strong>{{ r.service.name }}</strong><br>
+                    {{ r.date }} at {{ r.time }}<br>
+                    Trainer: {{ r.trainer.name }}
+                </p>
+
+                <div style="margin-top:10px; display:flex; gap:10px;">
+
+                    <a href="/reservation/{{ r.id }}/edit"
+                       class="btn-sm"
+                       style="background:#e0e7ff; color:#4338ca;">
+                        Edit
+                    </a>
+
+                    <form method="POST"
+                          action="/reservation/{{ r.id }}/cancel"
+                          onsubmit="return confirm('Cancel this reservation?');">
+                        <button type="submit"
+                                class="btn-sm"
+                                style="background:#fee2e2; color:#991b1b;">
+                            Cancel
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="hint">You have no recent reservations.</p>
+    {% endif %}
+
+    <div style="margin-top:15px;">
+        <a href="/reservations"
+           class="btn-sm"
+           style="background:#d1fae5; color:#065f46;">
+            View all reservations →
+        </a>
+    </div>
+</div>
+
+{% endblock %}

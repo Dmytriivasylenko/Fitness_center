@@ -1,0 +1,67 @@
+{% extends "admin/base_admin.html" %}
+
+{% block content %}
+<h2>Trainers</h2>
+
+<div style="margin-bottom: 12px; display:flex; gap:10px">
+
+    {% if show_inactive %}
+        <a class="btn" href="/admin/trainers">Show active trainers</a>
+    {% else %}
+        <a class="btn" href="/admin/trainers?inactive=1">Show inactive trainers</a>
+    {% endif %}
+
+    <a class="btn-primary" href="/admin/trainers/add">Add trainer</a>
+</div>
+
+<table class="table">
+<thead>
+<tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Gym ID</th>
+    <th>Status</th>
+    <th>Actions</th>
+</tr>
+</thead>
+
+<tbody>
+{% for t in trainers %}
+<tr>
+    <td>{{ t.id }}</td>
+    <td>{{ t.name }}</td>
+    <td>{{ t.gym_id }}</td>
+
+    <td>
+        {% if t.is_active %}
+            Active
+        {% else %}
+            Inactive
+        {% endif %}
+    </td>
+
+    <td>
+
+        {% if t.is_active %}
+            <!-- Edit -->
+            <a class="btn" href="/admin/trainers/{{ t.id }}/edit">Edit</a>
+
+            <!-- Soft delete -->
+            <form method="post" action="/admin/trainers/{{ t.id }}/delete" class="inline">
+                <button class="btn-danger" onclick="return confirm('Deactivate trainer?')">
+                    Deactivate
+                </button>
+            </form>
+
+        {% else %}
+            <!-- (optional) restore button — якщо захочеш, реалізуємо -->
+            <span style="color:#777">Deactivated</span>
+        {% endif %}
+
+    </td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+{% endblock %}
