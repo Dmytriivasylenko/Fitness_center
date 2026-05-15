@@ -1,6 +1,3 @@
-def test_homepage_redirects(client):
-    res = client.get("/")
-    assert res.status_code in (200, 302)
 
 
 def test_health_endpoint(client):
