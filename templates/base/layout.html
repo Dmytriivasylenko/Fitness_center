@@ -2,11 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}FitnessApp{% endblock %}</title>
+    <title>{% block title %}FitnessHub{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- 🔥 ОСНОВНИЙ THEME -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
+
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg:         #080b10;
+            --accent:     #ff3c38;
+            --text-main:  #eef0f4;
+            --text-muted: #6b7280;
+            --border:     rgba(255,255,255,.07);
+            --font-display: "Syne", sans-serif;
+            --font-body:    "DM Sans", sans-serif;
+        }
+
+        html, body {
+            background: var(--bg);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+        }
+    </style>
 
     {% block head %}{% endblock %}
 </head>
@@ -22,5 +47,6 @@
     {% include "partials/landing_footer.html" %}
 {% endif %}
 
+{% block scripts %}{% endblock %}
 </body>
 </html>

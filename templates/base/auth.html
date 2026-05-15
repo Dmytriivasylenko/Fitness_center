@@ -2,21 +2,280 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-
-    <title>
-        {% block title %}Authentication{% endblock %}
-    </title>
-
+    <title>{% block title %}FitnessHub{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- AUTH STYLES -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg:         #080b10;
+            --bg-card:    #0e1117;
+            --accent:     #ff3c38;
+            --accent-dim: rgba(255,60,56,.12);
+            --accent-glow:rgba(255,60,56,.3);
+            --text-main:  #eef0f4;
+            --text-muted: #6b7280;
+            --border:     rgba(255,255,255,.07);
+            --font-display: "Syne", sans-serif;
+            --font-body:    "DM Sans", sans-serif;
+        }
+
+        html, body {
+            min-height: 100%;
+            background: var(--bg);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            display: grid;
+            place-items: center;
+            min-height: 100vh;
+            background-image:
+                radial-gradient(ellipse 60% 40% at 20% 20%, rgba(255,60,56,.06) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 60% at 80% 80%, rgba(255,60,56,.04) 0%, transparent 70%);
+        }
+
+        .auth-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .auth-container {
+            width: 100%;
+            max-width: 440px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px 36px;
+            box-shadow: 0 32px 80px rgba(0,0,0,.5);
+            animation: fadeUp .4s cubic-bezier(0.4, 0, 0.2, 1) both;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Brand mark */
+        .auth-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 32px;
+        }
+
+        .auth-brand-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--accent);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .auth-brand-name {
+            font-family: var(--font-display);
+            font-size: 18px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .auth-brand-name span { color: var(--accent); }
+
+        /* Headings */
+        .auth-title {
+            font-family: var(--font-display);
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 6px;
+            line-height: 1.2;
+        }
+
+        .auth-subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 28px;
+            line-height: 1.5;
+        }
+
+        /* Form */
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .auth-form label {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .auth-form input {
+            width: 100%;
+            padding: 12px 14px;
+            margin-bottom: 16px;
+            background: rgba(255,255,255,.04);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-main);
+            font-size: 14px;
+            font-family: var(--font-body);
+            outline: none;
+            transition: border-color .2s, box-shadow .2s;
+        }
+
+        .auth-form input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-dim);
+        }
+
+        .auth-form input::placeholder { color: var(--text-muted); }
+
+        /* Grid helper for register */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .auth-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            font-family: var(--font-display);
+            cursor: pointer;
+            text-decoration: none;
+            transition: all .2s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: 4px;
+        }
+
+        .auth-btn.primary {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .auth-btn.primary:hover {
+            background: #e02d29;
+            box-shadow: 0 8px 24px var(--accent-glow);
+            transform: translateY(-1px);
+        }
+
+        .auth-btn.primary:active { transform: translateY(0); }
+
+        /* Flash */
+        .flash-messages {
+            margin-bottom: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .flash {
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 13px;
+            border: 1px solid transparent;
+        }
+
+        .flash-error {
+            background: rgba(231,76,60,.1);
+            border-color: rgba(231,76,60,.2);
+            color: #f5b7b1;
+        }
+
+        .flash-success {
+            background: rgba(46,204,113,.1);
+            border-color: rgba(46,204,113,.2);
+            color: #a9f3c2;
+        }
+
+        /* Links */
+        .auth-links {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .auth-link {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color .2s;
+        }
+
+        .auth-link:hover { color: var(--text-main); }
+        .auth-link.highlight { color: var(--accent); font-weight: 500; }
+        .auth-link.highlight:hover { color: #ff6260; }
+
+        /* Success page */
+        .success-highlights {
+            margin: 20px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .success-highlights p {
+            padding: 10px 14px;
+            background: rgba(111,207,151,.08);
+            border: 1px solid rgba(111,207,151,.15);
+            border-radius: 10px;
+            font-size: 14px;
+            color: #a9f3c2;
+        }
+
+        .auth-note {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 16px;
+            text-align: center;
+        }
+    </style>
 
     {% block head %}{% endblock %}
 </head>
 <body>
 
 <div class="auth-wrapper">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages" style="position:fixed; top:20px; right:20px; width:320px; z-index:999;">
+                {% for category, message in messages %}
+                    <div class="flash flash-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
     {% block content %}{% endblock %}
 </div>
 

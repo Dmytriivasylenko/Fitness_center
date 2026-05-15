@@ -1,12 +1,17 @@
 {% extends "base/auth.html" %}
-{% block title %}Join Our Fitness Club{% endblock %}
+{% block title %}Join — FitnessHub{% endblock %}
 {% block content %}
 
-<div class="auth-container fitness-auth">
+<div class="auth-container">
 
-    <h1 class="auth-title">Join the Fitness Community</h1>
+    <div class="auth-brand">
+        <div class="auth-brand-icon">💪</div>
+        <div class="auth-brand-name">Fitness<span>Hub</span></div>
+    </div>
+
+    <h1 class="auth-title">Create your account</h1>
     <p class="auth-subtitle">
-        Create your account to track workouts, manage memberships, and book classes
+        Track workouts, manage memberships, and book classes
     </p>
 
     <form method="post" class="auth-form">
@@ -19,6 +24,8 @@
                     id="login"
                     name="login"
                     placeholder="Choose a username"
+                    autocomplete="username"
+                    minlength="3"
                     required
                 >
             </div>
@@ -30,6 +37,7 @@
                     id="email"
                     name="email"
                     placeholder="you@example.com"
+                    autocomplete="email"
                     required
                 >
             </div>
@@ -42,7 +50,9 @@
                     type="password"
                     id="password"
                     name="password"
-                    placeholder="Create a strong password"
+                    placeholder="Min. 8 characters"
+                    autocomplete="new-password"
+                    minlength="8"
                     required
                 >
             </div>
@@ -64,6 +74,7 @@
             id="phone"
             name="phone"
             placeholder="+48 123 456 789"
+            autocomplete="tel"
             required
         >
 
@@ -75,7 +86,7 @@
 
     <div class="auth-links">
         <a href="{{ url_for('auth.login') }}" class="auth-link">
-            Already a member? Log in
+            Already a member? Log in →
         </a>
     </div>
 

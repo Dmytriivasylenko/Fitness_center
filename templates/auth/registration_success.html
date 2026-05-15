@@ -1,11 +1,15 @@
 {% extends "base/auth.html" %}
-{% block title %}Welcome to the Club{% endblock %}
+{% block title %}Welcome — FitnessHub{% endblock %}
 {% block content %}
 
-<div class="auth-container fitness-auth success" style="text-align: center;">
+<div class="auth-container" style="text-align: center;">
 
-    <h1 class="auth-title">Welcome to the Fitness Club 💪</h1>
+    <div class="auth-brand" style="justify-content: center;">
+        <div class="auth-brand-icon">💪</div>
+        <div class="auth-brand-name">Fitness<span>Hub</span></div>
+    </div>
 
+    <h1 class="auth-title">You're in! 🎉</h1>
     <p class="auth-subtitle">
         Your account is ready. You're one step closer to a stronger, healthier you.
     </p>
@@ -16,12 +20,12 @@
         <p>✔ Book classes & personal training</p>
     </div>
 
-    <a href="{{ url_for('auth.login') }}" class="auth-btn primary">
+    <a href="{{ url_for('auth.login') }}" class="auth-btn primary" style="margin-top: 24px;">
         Log In & Start Training
     </a>
 
     <p class="auth-note">
-        Let’s make progress — consistency starts today.
+        Consistency starts today. Let's get to work.
     </p>
 
 </div>
